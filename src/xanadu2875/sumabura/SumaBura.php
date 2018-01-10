@@ -2,7 +2,7 @@
 
 namespace xanadu2875\sumabura;
 
-use pocketmine\{Player as P, plugin\PluginBase as PB, utils\Config as C};
+use pocketmine\{Player as P, plugin\PluginBase as PB, utils\Config as C, utils\Utils as U};
 use pocketmine\event\{Listener as L, player\PlayerJoinEvent as PJE, player\PlayerDeathEvent as PDE, player\PlayerQuitEvent as PQE, entity\EntityDamageEvent as EDE, entity\EntityDamageByEntityEvent as EDBEE};  //一度やってみたかった...糞コードだけど許してね💛
 
 class SumaBura extends PB implements L
@@ -15,12 +15,19 @@ class SumaBura extends PB implements L
     @mkdir($this->getDataFolder());
 
     $this->knockBackPower = (new C($this->getDataFolder() . "KnockBackPower.yml", C::YAML, ["KnockBackPower" => 1.0]))->get("KnockBackPower");
+
+    if($this->checkUpdata())
+    {
+      $this->getServer()->getLogger()->notice("新しいバージョンがリリースされています！ ⇒ " . $this->getDescription()->getWebsite());
+    }
   }
 
   public function onEnable()
   {
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
   }
+
+  private function checkUpdata() : bool { return str_replace("\n", "",U::getURL("https://raw.githubusercontent.com/Xanadu2875/VersionManager/master/SumaBura.txt" . '?' . time() . mt_rand())) === $this->getDescription()->getVersion(); }
 
   /**
    * @priority HIGH

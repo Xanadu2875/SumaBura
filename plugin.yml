@@ -1,6 +1,6 @@
 name: SumaBura
 main: xanadu2875\sumabura\SumaBura
-version: 0.1.0
+version: 0.1.1
 api:
 - 2.0.0
 - 3.0.0
@@ -16,4 +16,4 @@ api:
 - 3.0.0-ALPHA10
 author: Xanadu2875
 description: 蓄積ダメージをノックバックに
-website: 
+website:
